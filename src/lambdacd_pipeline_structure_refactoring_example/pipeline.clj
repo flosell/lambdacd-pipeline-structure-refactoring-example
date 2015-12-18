@@ -16,19 +16,13 @@
        build-artifact
        publish-artifact)
 
-     check-preconditions-ci
-     deploy-ci
-     smoke-test-ci
+     complete-ci-deployment
      run-ci-tests
 
-     check-preconditions-qa
-     deploy-qa
-     smoke-test-qa
+     complete-qa-deployment
 
      wait-for-manual-trigger
 
-     check-preconditions-live
-     deploy-live
-     smoke-test-live
+     complete-qa-deployment
 
      report-live-deployment))
