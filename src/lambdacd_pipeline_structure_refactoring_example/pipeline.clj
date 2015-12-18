@@ -6,29 +6,37 @@
 
 (def pipeline-def
   `(
-     (either
-       wait-for-manual-trigger
-       wait-for-commit)
+     (alias "triggers"
+            (either
+              wait-for-manual-trigger
+              wait-for-commit))
 
-     (with-repo
-       run-unit-tests
-       run-acceptance-tests
-       build-artifact
-       publish-artifact)
+     (alias "test and build"
+            (with-repo
+              run-unit-tests
+              run-acceptance-tests
+              build-artifact
+              publish-artifact))
 
-     check-preconditions-ci
-     deploy-ci
-     smoke-test-ci
-     run-ci-tests
+     (alias "deploy to CI"
+            (run
+              check-preconditions-ci
+              deploy-ci
+              smoke-test-ci
+              run-ci-tests))
 
-     check-preconditions-qa
-     deploy-qa
-     smoke-test-qa
+     (alias "deploy to QA"
+            (run
+              check-preconditions-qa
+              deploy-qa
+              smoke-test-qa))
 
-     wait-for-manual-trigger
+     (alias "wait for signoff"
+            wait-for-manual-trigger)
 
-     check-preconditions-live
-     deploy-live
-     smoke-test-live
-
-     report-live-deployment))
+     (alias "deploy to LIVE"
+            (run
+              check-preconditions-live
+              deploy-live
+              smoke-test-live
+              report-live-deployment))))
