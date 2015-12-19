@@ -26,20 +26,11 @@
   (step-support/capture-output ctx
                                (println "running ci tests...")
                                {:status :success}))
-(defn smoke-test-ci [args ctx]
-  (step-support/capture-output ctx
-                               (println "running smoke tests against ci environment...")
-                               {:status :success}))
-(defn smoke-test-qa [args ctx]
-  (step-support/capture-output ctx
-                               (println "running smoke tests against qa environment...")
-                               {:status :success}))
-
-(defn smoke-test-live [args ctx]
-  (step-support/capture-output ctx
-                               (println "running smoke tests against live environment...")
-                               {:status :success}))
-
+(defn smoke-test [environment]
+  (fn [args ctx]
+    (step-support/capture-output ctx
+                                 (println "running smoke tests against " environment " environment...")
+                                 {:status :success})))
 
 ; build and publish
 (defn build-artifact [args ctx]
@@ -53,33 +44,16 @@
                                {:status :success}))
 
 ; deployment
-(defn check-preconditions-ci [args ctx]
-  (step-support/capture-output ctx
-                               (println "checking preconditions for deployment to ci environment...")
-                               {:status :success}))
-(defn deploy-ci [args ctx]
-  (step-support/capture-output ctx
-                               (println "deploying to ci environment...")
-                               {:status :success}))
-
-
-(defn check-preconditions-qa [args ctx]
-  (step-support/capture-output ctx
-                               (println "checking preconditions for deployment to qa environment...")
-                               {:status :success}))
-(defn deploy-qa [args ctx]
-  (step-support/capture-output ctx
-                               (println "deploying to live environment...")
-                               {:status :success}))
-
-(defn check-preconditions-live [args ctx]
-  (step-support/capture-output ctx
-                               (println "checking preconditions for deployment to live environment...")
-                               {:status :success}))
-(defn deploy-live [args ctx]
-  (step-support/capture-output ctx
-                               (println "deploying to live environment...")
-                               {:status :success}))
+(defn check-preconditions [environment]
+  (fn [args ctx]
+    (step-support/capture-output ctx
+                                 (println "checking preconditions for deployment to " environment " environment...")
+                                 {:status :success})))
+(defn deploy [environment]
+  (fn [args ctx]
+    (step-support/capture-output ctx
+                                 (println "deploying to " environment " environment...")
+                                 {:status :success})))
 
 (defn report-live-deployment [args ctx]
   (step-support/capture-output ctx

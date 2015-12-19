@@ -20,23 +20,23 @@
 
      (alias "deploy to CI"
             (run
-              check-preconditions-ci
-              deploy-ci
-              smoke-test-ci
+              (check-preconditions :ci)
+              (deploy :ci)
+              (smoke-test :ci)
               run-ci-tests))
 
      (alias "deploy to QA"
             (run
-              check-preconditions-qa
-              deploy-qa
-              smoke-test-qa))
+              (check-preconditions :qa)
+              (deploy :qa)
+              (smoke-test :qa)))
 
      (alias "wait for signoff"
             wait-for-manual-trigger)
 
      (alias "deploy to LIVE"
             (run
-              check-preconditions-live
-              deploy-live
-              smoke-test-live
+              (check-preconditions :live)
+              (deploy :live)
+              (smoke-test :live)
               report-live-deployment))))
