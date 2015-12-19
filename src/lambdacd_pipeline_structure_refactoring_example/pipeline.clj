@@ -2,7 +2,13 @@
   (:use [lambdacd.steps.control-flow]
         [lambdacd-pipeline-structure-refactoring-example.steps])
   (:require
-        [lambdacd.steps.manualtrigger :refer :all]))
+        [lambdacd.steps.manualtrigger :refer :all])
+  (:refer-clojure :exclude [alias]))
+
+(defn deploy-steps [environment]
+  `((check-preconditions ~environment)
+     (deploy ~environment)
+     (smoke-test ~environment)))
 
 (def pipeline-def
   `(
@@ -20,23 +26,17 @@
 
      (alias "deploy to CI"
             (run
-              (check-preconditions :ci)
-              (deploy :ci)
-              (smoke-test :ci)
+              ~@(deploy-steps :ci)
               run-ci-tests))
 
      (alias "deploy to QA"
             (run
-              (check-preconditions :qa)
-              (deploy :qa)
-              (smoke-test :qa)))
+              ~@(deploy-steps :qa)))
 
      (alias "wait for signoff"
             wait-for-manual-trigger)
 
      (alias "deploy to LIVE"
             (run
-              (check-preconditions :live)
-              (deploy :live)
-              (smoke-test :live)
+              ~@(deploy-steps :live)
               report-live-deployment))))
