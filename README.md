@@ -1,10 +1,13 @@
 # lambdacd-pipeline-structure-refactoring-example
 
-A continuous delivery pipeline for FIXME
+Examples on how to refactor pipeline code to be more easier understand and maintain. Accompanies the [guide in the LambdaCD Wiki](https://github.com/flosell/lambdacd/wiki/Guide:-Pipeline-Structure-Refactoring)
+
+The master branch contains the initial state, the other branches contain the end result of each refactoring step described. 
 
 ## Usage
 
 * `lein run` will start your pipeline with a web-ui listening on port 8080
+* `lein test` to run tests
 
 ## Files
 
@@ -15,4 +18,4 @@ A continuous delivery pipeline for FIXME
 
 ## References
 
-* for a more detailed example, look at the [example pipeline](https://github.com/flosell/lambdacd/tree/master/src/todopipeline) in the main LambdaCD project
+* [Guide in the LambdaCD Wiki](https://github.com/flosell/lambdacd/wiki/Guide:-Pipeline-Structure-Refactoring)
